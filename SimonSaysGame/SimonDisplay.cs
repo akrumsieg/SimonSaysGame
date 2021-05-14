@@ -140,7 +140,7 @@ namespace SimonSaysGame
             int score = _simonGame.ReturnScoreCounter();
             Console.WriteLine($"Your final score was: {score}\n\n" +
             "Thanks for playing!\n\n" +
-            "Press any key to exit.");
+            "Press ENTER to play again. Press esc to exit.");
             Console.ResetColor();
         }
 
@@ -181,9 +181,42 @@ namespace SimonSaysGame
 
             }
             System.Threading.Thread.Sleep(300);
-            Console.Clear();
-            System.Threading.Thread.Sleep(20);
+            DisplayDPad(); //changed from clear to dpad
+            System.Threading.Thread.Sleep(100);
+        }
 
+        public void DisplayUserDirection(Directions input)
+        {
+            DisplayDPad();
+            switch ((int)input)
+            {
+                case 0:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    DisplayInPosition(14, 0, _dPad[0]);
+                    Console.ResetColor();
+                    break;
+                case 1:
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    DisplayInPosition(22, 8, _dPad[1]);
+                    Console.ResetColor();
+                    break;
+                case 2:
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    DisplayInPosition(14, 13, _dPad[2]);
+                    Console.ResetColor();
+                    break;
+                case 3:
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    DisplayInPosition(3, 8, _dPad[3]);
+                    Console.ResetColor();
+                    break;
+                default:
+                    break;
+
+            }
+            System.Threading.Thread.Sleep(100);
+            DisplayDPad(); //changed from clear to dpad
+            System.Threading.Thread.Sleep(30); //lengthened to 30
         }
 
         public void DisplayInPosition(int x, int y, string direction)

@@ -9,33 +9,44 @@ namespace SimonSaysGame
     public enum Directions { Up = 0, Right, Down, Left, Unknown }
     public class SimonGame
     {
-        //constructor
-
-        //properties
-        public bool GameOver { get; private set; }
+        //properties and fields
+        public bool GameOver { get; set; }
         public List<int> _gamePattern = new List<int> { };
-        private int guessPosition = 0;
+        private int _guessPosition = 0;
         public int _scoreCounter = -1;
 
         //methods
-        public void generateNextNumber()
+      
+        public void ResetGameData()
+        {
+            _guessPosition = 0;
+            _scoreCounter = -1;
+            for (int i = _gamePattern.Count - 1; i >= 0; i--)
+            {
+                _gamePattern.Remove(_gamePattern[i]);
+            }
+        }
+
+        public void GenerateNextNumber()
         {
             Random rand = new Random();
             int nextNum = rand.Next(4);
             _gamePattern.Add(nextNum);
-            guessPosition = 0;
+            _guessPosition = 0;
             _scoreCounter++;
         }
 
-        public void CheckGuess(Directions input)
+        public bool CheckGuess(Directions input)
         {
-            if (_gamePattern[guessPosition] == (int)input)
+            if (_gamePattern[_guessPosition] == (int)input)
             {
-                guessPosition++;
+                _guessPosition++;
+                return true;
             }
             else
             {
                 GameOver = true;
+                return false;
             }
         }
 
